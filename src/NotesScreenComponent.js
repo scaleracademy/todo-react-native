@@ -1,25 +1,42 @@
-import React from 'react';
-import  {Text, FlatList, View, StyleSheet}  from 'react-native';
+import React, { useState } from 'react';
+import  {Text, FlatList, View, StyleSheet, TextInput}  from 'react-native';
 import SingleNoteSummaryComponent from './SingleNoteSummaryComponent';
+import CreateNoteComponent from './CreateNoteComponent';
 
 // a react component is nothing but a javascript function
 
 const NotesScreenComponent = () => {
 
-    var data = [
-        {"date": "24-10-1998", "text": "I am going to Dubai"},
-        {"date": "24-02-2002", "text": "I have to bring vegatbles "},
-        {"date": "24-02-2003", "text": "I have to bring vegatbles"},
-        {"date": "24-02-2004", "text": "I have to bring vegatbles"},
-        {"date": "24-02-2005", "text": "I have to bring vegatbles"},
-        {"date": "24-02-2006", "text": "I have to bring vegatbles"},
-        {"date": "24-02-2007", "text": "I have to bring vegatbles"}
-    ]
+    // var data = [
+    //     {"date": "24-10-1998", "text": "I am going to Dubai"},
+    //     {"date": "24-02-2002", "text": "I have to bring vegatbles "},
+    //     {"date": "24-02-2003", "text": "I have to bring vegatbles"},
+    //     {"date": "24-02-2004", "text": "I have to bring vegatbles"},
+    //     {"date": "24-02-2005", "text": "I have to bring vegatbles"},
+    //     {"date": "24-02-2006", "text": "I have to bring vegatbles"},
+    //     {"date": "24-02-2007", "text": "I have to bring vegatbles"}
+    // ]
 
+    const [data, setData] = useState([]);
     // to write javascript inside jsx, i need to enclose javascript code in {}
     // {name: 'abc', 'age': 12} -> {name} -> {name: 'abc'}
     // item , index
+
+    const addNewNote = (text) => {
+        if(text.length > 0){
+            setData([{"text": text, "date": new Date()}, ...data])
+        }
+        
+
+        // A= ['a', 'b', 'c', 'd'] -> ...A -> 'a', 'b', 'c', 'd'
+    }
+
+
     return <View style={styles.viewProperties}>
+        <CreateNoteComponent onCreateButtonPress={
+            (text) => addNewNote(text) 
+        }/>
+        
         <FlatList 
             showsVerticalScrollIndicator={false}
             style={styles.listProperties}
@@ -31,7 +48,7 @@ const NotesScreenComponent = () => {
             numColumns={2}
             renderItem={({item}) => {
                 // console.log(index, item)
-                return <SingleNoteSummaryComponent myNoteText={item.text}/>
+                return <SingleNoteSummaryComponent myNoteDate={item.date} myNoteText={item.text}/>
             }
             
         }   

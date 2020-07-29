@@ -5,6 +5,7 @@ import {View, Text, StyleSheet} from 'react-native';
 const SingleNoteSummaryComponent = (props) => {
     console.log(props)
     return <View  backgroundColor={randomBackground()} style={styles.textViewStyle}>
+        <Text> {props.myNoteDate.toDateString()} </Text>
         <Text style={styles.textProperties}> {props.myNoteText}</Text>
     </View>
 }
