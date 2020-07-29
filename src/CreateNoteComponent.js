@@ -13,7 +13,14 @@ const CreateNoteComponent = (props) => {
         autoCapitalize="none"
         multiline={true}
         value={newNoteText}
-        onChangeText={(currentText) => setNewNoteText(currentText)}
+        onChangeText={(currentText) => {
+            if(currentText.length > 10) {
+                console.log("Not allows");
+            } else {
+                setNewNoteText(currentText)
+            }
+        }
+        }
         />
         <Button 
             title={"Create Note"}
@@ -32,7 +39,8 @@ const styles = StyleSheet.create({
         width: 320,
         height: 140,
         borderRadius: 10,
-        padding: 15
+        padding: 15,
+        fontSize: 30
     }
 });
 
