@@ -14,11 +14,8 @@ const CreateNoteComponent = (props) => {
         multiline={true}
         value={newNoteText}
         onChangeText={(currentText) => {
-            if(currentText.length > 10) {
-                console.log("Not allows");
-            } else {
                 setNewNoteText(currentText)
-            }
+        
         }
         }
         />
