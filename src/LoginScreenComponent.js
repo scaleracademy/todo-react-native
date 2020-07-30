@@ -30,7 +30,13 @@ const LoginScreenComponent = () => {
         <View style={styles.buttonStyle}>
         <Button  
             title={"Log In"}
-            onPress={() => firebase.auth().signInWithEmailAndPassword(email, password)}
+            onPress={() => firebase
+                            .auth()
+                            .signInWithEmailAndPassword(email, password)
+                            .then(() => {})
+                            .catch(() => {})
+                        }
+                            
         />
         </View>
         
@@ -44,6 +50,7 @@ const LoginScreenComponent = () => {
                         .then(() => {
                             setEmail("")
                             setPassword("")
+                            console.log("Login Successful")
                         })
                         .catch(() => {
                             console.log("Some error happened")
