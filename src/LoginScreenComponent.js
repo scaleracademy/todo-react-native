@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {StyleSheet, View, Text, TextInput, Button} from 'react-native';
-
+import firebase from 'firebase';
 
 const LoginScreenComponent = () => {
+
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
     return <View>
         <Text> Email: </Text>
         <TextInput 
             style={styles.textInputStyle}
             autoCorrect={false}
             autoCapitalize="none"
+            value={email}
+            onChangeText={(currentText) => setEmail(currentText) }
         />
 
         <Text> Password </Text>
@@ -17,11 +23,38 @@ const LoginScreenComponent = () => {
             autoCorrect={false}
             autoCapitalize="none"
             secureTextEntry={true}
+            value={password}
+            onChangeText={(currentText) => setPassword(currentText)}
         />
 
+        <View style={styles.buttonStyle}>
+        <Button  
+            title={"Log In"}
+            onPress={() => firebase.auth().signInWithEmailAndPassword(email, password)}
+        />
+        </View>
+        
+        <View style={styles.buttonStyle}>
+        <Button  
+            title={"Sign Up"}
+            onPress={() => {
+                    firebase
+                        .auth()
+                        .createUserWithEmailAndPassword(email, password)
+                        .then(() => {
+                            setEmail("")
+                            setPassword("")
+                        })
+                        .catch(() => {
+                            console.log("Some error happened")
+                        })
 
-        <Button title={"Log In"}/>
-        <Button title={"Sign Up"}/>
+                }
+            }
+        
+        />
+        </View>
+        
     </View>
 }
 
@@ -32,6 +65,9 @@ const styles = StyleSheet.create({
         margin: 10,
         padding: 10,
         borderRadius: 3
+    },
+    buttonStyle: {
+        margin: 10
     }
 });
 

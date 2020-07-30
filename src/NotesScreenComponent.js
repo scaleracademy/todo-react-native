@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import  {Text, FlatList, View, StyleSheet, TextInput}  from 'react-native';
+import  {Text, FlatList, View, StyleSheet, TextInput, Button}  from 'react-native';
 import SingleNoteSummaryComponent from './SingleNoteSummaryComponent';
 import CreateNoteComponent from './CreateNoteComponent';
-
+import firebase from 'firebase'
 // a react component is nothing but a javascript function
 
 const NotesScreenComponent = () => {
@@ -33,6 +33,13 @@ const NotesScreenComponent = () => {
 
 
     return <View style={styles.viewProperties}>
+
+        <Button 
+            title={"Log Out"}
+            onPress={() => firebase.auth().signOut()}
+        />
+
+
         <CreateNoteComponent onCreateButtonPress={
             (text) => addNewNote(text) 
         }/>
